@@ -3,7 +3,7 @@ import serviceReducer from './serviceSlice';
 
 export const store = configureStore({
     reducer: {
-        counter: serviceReducer,
+        service: serviceReducer,
     },
 });
 

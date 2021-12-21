@@ -1,7 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { addService } from '../../redux/actions';
-import { ContentType } from '../../data/initContent';
+import { selectItems } from '../../redux-toolkit-with/serviceSlice';
+import { useAppSelector, ContentType } from '../../data/initContent';
 import { Flex } from '../primitives/Flex';
 import { BoxProps } from '../primitives/rebassTypes';
 import { Text } from '../primitives/Text';
@@ -10,8 +9,7 @@ import Ul from '../primitives/Ul';
 type MyTableProps = { contentState: ContentType[] } & BoxProps;
 
 export default function MyTable({ contentState }: MyTableProps) {
-    // const items = useSelector((state: any) => state.serviceList);
-
+    const items = useAppSelector(selectItems);
     console.log(items);
 
     const servicesHtml = items.map((item: any) => (

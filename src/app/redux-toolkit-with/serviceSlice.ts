@@ -14,7 +14,7 @@ const initialState: ServiceState = {
 };
 
 export const serviceSlice = createSlice({
-    name: 'counter',
+    name: 'service',
     initialState,
     reducers: {
         addItem: (state, action: PayloadAction<ContentType>) => {
@@ -25,6 +25,6 @@ export const serviceSlice = createSlice({
 
 export const { addItem } = serviceSlice.actions;
 
-export const selectCount = (state: RootState) => state.counter.items;
+export const selectItems = (state: RootState) => state.service.items;
 
 export default serviceSlice.reducer;
