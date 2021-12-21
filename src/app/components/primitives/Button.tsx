@@ -8,7 +8,7 @@ type ButtonProps = { cursor?: string } & BoxProps;
 const buttonVariants = {
     ...boxVariants,
     cancel: {
-        color: 'red',
+        color: 'cancel',
         fontSize: '20px',
         bg: 'white',
         border: '2px solid red',

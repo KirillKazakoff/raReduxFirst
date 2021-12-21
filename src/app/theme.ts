@@ -3,7 +3,7 @@ const colors = {
     primary: 'black',
     secondary: 'tan',
     hint: 'grey',
-    cancel: 'red',
+    cancel: 'green',
     boxButton: 'white',
     form: 'royalblue',
     input: 'white',

@@ -1,26 +1,54 @@
 import React from 'react';
-import { selectItems } from '../../redux-toolkit-with/serviceSlice';
-import { useAppSelector, ContentType } from '../../data/initContent';
+import { AiFillEdit } from '@react-icons/all-files/ai/AiFillEdit';
+import { selectItems, removeItem, setEditted } from '../../redux/serviceSlice';
+import { useAppDispatch, useAppSelector } from '../../data/initContent';
 import { Flex } from '../primitives/Flex';
-import { BoxProps } from '../primitives/rebassTypes';
 import { Text } from '../primitives/Text';
 import Ul from '../primitives/Ul';
+import Button from '../primitives/Button';
 
-type MyTableProps = { contentState: ContentType[] } & BoxProps;
-
-export default function MyTable({ contentState }: MyTableProps) {
+export default function MyTable() {
     const items = useAppSelector(selectItems);
-    console.log(items);
+    const dispatch = useAppDispatch();
+
+    const onRemove = (e: React.SyntheticEvent) => {
+        const { id } = e.currentTarget;
+        dispatch(removeItem(id));
+    };
+
+    const onEdit = (e: React.SyntheticEvent) => {
+        const { id } = e.currentTarget;
+        const item = items.find((i) => i.id === id);
+        if (!item) return;
+        dispatch(setEditted(item));
+    };
 
     const servicesHtml = items.map((item: any) => (
-        <Flex key={item.id} gap='10px'>
-            <Text>{item.service}</Text>
-            <Text>{item.amount}</Text>
+        <Flex key={item.id} gap='40px' alignItems='center'>
+            <Flex gap='10px'>
+                <Text>{item.service}</Text>
+                <Text>{item.amount}</Text>
+            </Flex>
+
+            <Flex gap='10px'>
+                <Button
+                    variant='cancel' fontSize='18px' onClick={onRemove}
+                    id={item.id}
+                >
+                    X
+                </Button>
+                <Button onClick={onEdit} id={item.id}>
+                    <AiFillEdit />
+                </Button>
+            </Flex>
         </Flex>
     ));
 
     return (
-        <Ul bg='tomato' flexDirection='column' variant='primary'>
+        <Ul
+            bg='tomato' flexDirection='column' variant='primary'
+            rowGap='10px'
+        >
             {servicesHtml}
         </Ul>
     );
