@@ -23,17 +23,7 @@ export default function MyForm() {
     const onSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
 
-        const target = e.target as typeof e.target & {
-            service: { value: string };
-            amount: { value: string };
-        };
-
-        const newService = {
-            service: target.service.value,
-            amount: target.amount.value,
-            id: nanoid(),
-        };
-
+        const newService = { ...inputs, id: nanoid() };
         dispatch(refreshInputs());
         if (editId) {
             newService.id = editId;
@@ -52,7 +42,7 @@ export default function MyForm() {
                     variant='input'
                     bg='form'
                     required
-                    value={inputs[0].value}
+                    value={inputs.service}
                     onChange={onChange}
                 />
                 <Input
@@ -60,7 +50,7 @@ export default function MyForm() {
                     variant='input'
                     bg='form'
                     required
-                    value={inputs[1].value}
+                    value={inputs.amount}
                     onChange={onChange}
                     type='text'
                 />

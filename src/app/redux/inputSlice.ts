@@ -11,15 +11,18 @@ export const inputSlice = createSlice({
             const index = state.findIndex((item) => item.name === action.payload.name);
             state[index].value = action.payload.value;
         },
-        updateInputs: (state, action: PayloadAction<InputState[]>) => {
-            return action.payload;
-        },
+        updateInputs: (state, action: PayloadAction<InputState[]>) => action.payload,
         refreshInputs: () => initForm,
     },
 });
 
 export const { changeInput, updateInputs, refreshInputs } = inputSlice.actions;
 
-export const selectInputs = (state: RootState) => state.inputs;
+export const selectInputs = (state: RootState) => {
+    return state.inputs.reduce((total, input) => {
+        total[input.name] = input.value;
+        return total;
+    }, {});
+};
 
 export default inputSlice.reducer;
