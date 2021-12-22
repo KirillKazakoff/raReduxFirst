@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-export const initForm2 = {
+export const initForm = {
     service: '',
     amount: '',
 };

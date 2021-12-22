@@ -37,15 +37,13 @@ export const serviceSlice = createSlice({
     },
 });
 
-export const {
-    addItem, removeItem, setEditted, editItem,
-} = serviceSlice.actions;
+export const { addItem, removeItem, setEditted } = serviceSlice.actions;
 
 export const selectItems = (state: RootState) => state.service.items;
 export const selectEditted = (state: RootState) => state.service.editted;
 
-export const editItemMiddle = (item: ContentType): AppThunk => (dispatch) => {
-    dispatch(editItem(item));
+export const editItem = (item: ContentType): AppThunk => (dispatch) => {
+    dispatch(serviceSlice.actions.editItem(item));
     dispatch(setEditted(''));
 };
 
