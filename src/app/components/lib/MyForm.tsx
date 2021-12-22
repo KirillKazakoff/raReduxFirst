@@ -1,6 +1,6 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
-import { changeInput, refreshInputs, selectInputs } from '../../redux/inputSlice';
+import { changeInput, refreshInputs, selectInputs } from '../../redux/formSlice';
 import { useAppDispatch, useAppSelector } from '../../data/initContent';
 import Button from '../primitives/Button';
 import { Flex } from '../primitives/Flex';

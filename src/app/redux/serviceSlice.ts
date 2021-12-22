@@ -6,13 +6,11 @@ import type { AppThunk, RootState } from './store';
 
 export interface ServiceState {
     items: ContentType[];
-    status: 'idle' | 'loading' | 'failed';
     editted: string;
 }
 
 const initialState: ServiceState = {
     items: initContent,
-    status: 'idle',
     editted: '',
 };
 

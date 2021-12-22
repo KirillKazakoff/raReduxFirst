@@ -9,7 +9,7 @@ export interface InputsState {
     amount: string;
 }
 
-export const inputSlice = createSlice({
+export const formSlice = createSlice({
     name: 'input',
     initialState: initForm,
     reducers: {
@@ -21,8 +21,8 @@ export const inputSlice = createSlice({
     },
 });
 
-export const { changeInput, updateInputs, refreshInputs } = inputSlice.actions;
+export const { changeInput, updateInputs, refreshInputs } = formSlice.actions;
 
 export const selectInputs = (state: RootState) => state.inputs;
 
-export default inputSlice.reducer;
+export default formSlice.reducer;

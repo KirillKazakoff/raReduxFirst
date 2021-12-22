@@ -1,11 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import serviceReducer from './serviceSlice';
-import inputReducer from './inputSlice';
+import formReducer from './formSlice';
 
 export const store = configureStore({
     reducer: {
         service: serviceReducer,
-        inputs: inputReducer,
+        inputs: formReducer,
     },
 });
 

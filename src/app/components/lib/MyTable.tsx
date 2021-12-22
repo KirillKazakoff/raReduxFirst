@@ -1,6 +1,6 @@
 import React from 'react';
 import { AiFillEdit } from '@react-icons/all-files/ai/AiFillEdit';
-import { updateInputs } from '../../redux/inputSlice';
+import { updateInputs } from '../../redux/formSlice';
 import { useAppDispatch, useAppSelector } from '../../data/initContent';
 import {
     selectItems,
