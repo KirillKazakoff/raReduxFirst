@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import serviceReducer from './serviceSlice';
+import inputReducer from './inputSlice';
 
 export const store = configureStore({
     reducer: {
         service: serviceReducer,
+        inputs: inputReducer,
     },
 });
 

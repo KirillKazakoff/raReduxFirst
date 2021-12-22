@@ -1,5 +1,6 @@
 import React from 'react';
 import { AiFillEdit } from '@react-icons/all-files/ai/AiFillEdit';
+import { changeInput, refreshInputs } from '../../redux/inputSlice';
 import { selectItems, removeItem, setEditted } from '../../redux/serviceSlice';
 import { useAppDispatch, useAppSelector } from '../../data/initContent';
 import { Flex } from '../primitives/Flex';
@@ -21,6 +22,13 @@ export default function MyTable() {
         const item = items.find((i) => i.id === id);
         if (!item) return;
         dispatch(setEditted(item));
+
+        console.log(item);
+        const inputs = [
+            { name: 'service', value: item.service },
+            { name: 'amount', value: item.amount },
+        ];
+        dispatch(refreshInputs(inputs));
     };
 
     const servicesHtml = items.map((item: any) => (
@@ -46,8 +54,11 @@ export default function MyTable() {
 
     return (
         <Ul
-            bg='tomato' flexDirection='column' variant='primary'
+            bg='tomato'
+            flexDirection='column'
+            variant='primary'
             rowGap='10px'
+            borderColor={editted ? 'formChanged' : 'primary'}
         >
             {servicesHtml}
         </Ul>
