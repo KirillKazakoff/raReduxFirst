@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -7,21 +8,23 @@ import type { AppThunk, RootState } from './store';
 export interface ServiceState {
     items: ContentType[];
     editted: string;
+    filter: string;
 }
 
 const initialState: ServiceState = {
     items: initContent,
     editted: '',
+    filter: '',
 };
 
 export const serviceSlice = createSlice({
     name: 'service',
     initialState,
     reducers: {
-        addItem: (state: ServiceState, action: PayloadAction<ContentType>) => {
+        addItem: (state, action: PayloadAction<ContentType>) => {
             state.items.push(action.payload);
         },
-        removeItem: (state: ServiceState, action: PayloadAction<string>) => {
+        removeItem: (state, action: PayloadAction<string>) => {
             const index = state.items.findIndex((item) => item.id === action.payload);
             state.items.splice(index, 1);
         },
@@ -29,15 +32,20 @@ export const serviceSlice = createSlice({
             const index = state.items.findIndex((item) => item.id === action.payload.id);
             state.items[index] = action.payload;
         },
-        setEditted: (state: ServiceState, action: PayloadAction<string>) => {
+        setEditted: (state, action: PayloadAction<string>) => {
             state.editted = action.payload;
+        },
+        setFilter: (state, action: PayloadAction<string>) => {
+            state.filter = action.payload;
         },
     },
 });
 
-export const { addItem, removeItem, setEditted } = serviceSlice.actions;
+export const { addItem, removeItem, setEditted, setFilter } = serviceSlice.actions;
 
-export const selectItems = (state: RootState) => state.service.items;
+export const selectItems = (state: RootState) => {
+    return state.service.items.filter((item) => item.service.includes(state.service.filter));
+};
 export const selectEditted = (state: RootState) => state.service.editted;
 
 export const editItem = (item: ContentType): AppThunk => (dispatch) => {
