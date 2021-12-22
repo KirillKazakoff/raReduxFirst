@@ -1,13 +1,14 @@
 import React from 'react';
 import { AiFillEdit } from '@react-icons/all-files/ai/AiFillEdit';
-import { changeInput, refreshInputs, updateInputs } from '../../redux/inputSlice';
+import { updateInputs } from '../../redux/inputSlice';
+import { useAppDispatch, useAppSelector } from '../../data/initContent';
 import {
     selectItems,
     removeItem,
     setEditted,
     selectEditted,
 } from '../../redux/serviceSlice';
-import { useAppDispatch, useAppSelector } from '../../data/initContent';
+
 import { Flex } from '../primitives/Flex';
 import { Text } from '../primitives/Text';
 import Ul from '../primitives/Ul';
@@ -30,10 +31,9 @@ export default function MyTable() {
 
         dispatch(setEditted(item.id));
 
-        const inputs = [
-            { name: 'service', value: item.service },
-            { name: 'amount', value: item.amount },
-        ];
+        const { service, amount } = item;
+        const inputs = { service, amount };
+
         dispatch(updateInputs(inputs));
     };
 

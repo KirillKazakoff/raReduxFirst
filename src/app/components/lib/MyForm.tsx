@@ -13,10 +13,8 @@ export default function MyForm() {
     const editId = useAppSelector(selectEditted);
     const inputs = useAppSelector(selectInputs);
 
-    const onChange = (e: React.SyntheticEvent) => {
-        const target = e.target as typeof e.target & { value: string; name: string };
-        const changedInput = { name: target.name, value: target.value };
-
+    const onChange = (e: React.SyntheticEvent<HTMLInputElement>) => {
+        const changedInput = { name: e.currentTarget.name, value: e.currentTarget.value };
         dispatch(changeInput(changedInput));
     };
 

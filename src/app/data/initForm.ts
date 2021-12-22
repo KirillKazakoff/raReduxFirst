@@ -1,18 +1,10 @@
 /* eslint-disable no-param-reassign */
-export const initForm = [
-    {
-        name: 'service',
-        value: '',
-    },
-    {
-        name: 'amount',
-        value: '',
-    },
-];
+export const initForm2 = {
+    service: '',
+    amount: '',
+};
 
-// const initForm = init.reduce((obj: any, item) => {
-//     obj[item.name] = '';
-//     return obj;
-// }, {});
-
-export type InputState = typeof initForm[0];
+export type InputState = {
+    name: string;
+    value: string;
+};

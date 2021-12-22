@@ -27,20 +27,25 @@ export const serviceSlice = createSlice({
             const index = state.items.findIndex((item) => item.id === action.payload);
             state.items.splice(index, 1);
         },
+        editItem: (state, action: PayloadAction<ContentType>) => {
+            const index = state.items.findIndex((item) => item.id === action.payload.id);
+            state.items[index] = action.payload;
+        },
         setEditted: (state: ServiceState, action: PayloadAction<string>) => {
             state.editted = action.payload;
         },
     },
 });
 
-export const { addItem, removeItem, setEditted } = serviceSlice.actions;
+export const {
+    addItem, removeItem, setEditted, editItem,
+} = serviceSlice.actions;
 
 export const selectItems = (state: RootState) => state.service.items;
 export const selectEditted = (state: RootState) => state.service.editted;
 
-export const editItem = (item: ContentType): AppThunk => (dispatch, getState) => {
-    dispatch(removeItem(item.id));
-    dispatch(addItem(item));
+export const editItemMiddle = (item: ContentType): AppThunk => (dispatch) => {
+    dispatch(editItem(item));
     dispatch(setEditted(''));
 };
 
