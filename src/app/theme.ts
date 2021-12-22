@@ -7,7 +7,7 @@ const colors = {
     boxButton: 'white',
     form: 'royalblue',
     input: 'white',
-    formChanged: 'green',
+    formChanged: 'white',
 };
 
 export const theme = {

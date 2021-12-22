@@ -11,13 +11,14 @@ export const inputSlice = createSlice({
             const index = state.findIndex((item) => item.name === action.payload.name);
             state[index].value = action.payload.value;
         },
-        refreshInputs: (state, action: PayloadAction<InputState[]>) => {
+        updateInputs: (state, action: PayloadAction<InputState[]>) => {
             return action.payload;
         },
+        refreshInputs: () => initForm,
     },
 });
 
-export const { changeInput, refreshInputs } = inputSlice.actions;
+export const { changeInput, updateInputs, refreshInputs } = inputSlice.actions;
 
 export const selectInputs = (state: RootState) => state.inputs;
 

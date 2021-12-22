@@ -1,7 +1,12 @@
 import React from 'react';
 import { AiFillEdit } from '@react-icons/all-files/ai/AiFillEdit';
-import { changeInput, refreshInputs } from '../../redux/inputSlice';
-import { selectItems, removeItem, setEditted } from '../../redux/serviceSlice';
+import { changeInput, refreshInputs, updateInputs } from '../../redux/inputSlice';
+import {
+    selectItems,
+    removeItem,
+    setEditted,
+    selectEditted,
+} from '../../redux/serviceSlice';
 import { useAppDispatch, useAppSelector } from '../../data/initContent';
 import { Flex } from '../primitives/Flex';
 import { Text } from '../primitives/Text';
@@ -11,6 +16,7 @@ import Button from '../primitives/Button';
 export default function MyTable() {
     const items = useAppSelector(selectItems);
     const dispatch = useAppDispatch();
+    const isEditted = useAppSelector(selectEditted);
 
     const onRemove = (e: React.SyntheticEvent) => {
         const { id } = e.currentTarget;
@@ -21,14 +27,14 @@ export default function MyTable() {
         const { id } = e.currentTarget;
         const item = items.find((i) => i.id === id);
         if (!item) return;
-        dispatch(setEditted(item));
 
-        console.log(item);
+        dispatch(setEditted(item.id));
+
         const inputs = [
             { name: 'service', value: item.service },
             { name: 'amount', value: item.amount },
         ];
-        dispatch(refreshInputs(inputs));
+        dispatch(updateInputs(inputs));
     };
 
     const servicesHtml = items.map((item: any) => (
@@ -58,7 +64,7 @@ export default function MyTable() {
             flexDirection='column'
             variant='primary'
             rowGap='10px'
-            borderColor={editted ? 'formChanged' : 'primary'}
+            borderColor={isEditted ? 'formChanged' : 'primary'}
         >
             {servicesHtml}
         </Ul>

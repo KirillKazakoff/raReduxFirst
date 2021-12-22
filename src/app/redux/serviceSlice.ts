@@ -7,13 +7,13 @@ import type { AppThunk, RootState } from './store';
 export interface ServiceState {
     items: ContentType[];
     status: 'idle' | 'loading' | 'failed';
-    editted: ContentType | null;
+    editted: string;
 }
 
 const initialState: ServiceState = {
     items: initContent,
     status: 'idle',
-    editted: null,
+    editted: '',
 };
 
 export const serviceSlice = createSlice({
@@ -27,7 +27,7 @@ export const serviceSlice = createSlice({
             const index = state.items.findIndex((item) => item.id === action.payload);
             state.items.splice(index, 1);
         },
-        setEditted: (state: ServiceState, action: PayloadAction<ContentType | null>) => {
+        setEditted: (state: ServiceState, action: PayloadAction<string>) => {
             state.editted = action.payload;
         },
     },
@@ -41,20 +41,10 @@ export const selectEditted = (state: RootState) => state.service.editted;
 export const editItem = (item: ContentType): AppThunk => (dispatch, getState) => {
     dispatch(removeItem(item.id));
     dispatch(addItem(item));
+    dispatch(setEditted(''));
 };
 
 export default serviceSlice.reducer;
-
-// const reducers = {
-//     addItem: (state: ServiceState, action: PayloadAction<ContentType>) => {
-//         state.items.push(action.payload);
-//     },
-//     removeItem: (state: ServiceState, action: PayloadAction<string>) => {
-//         const index = state.items.findIndex((item) => item.id === action.payload);
-//         state.items.splice(index, 1);
-//     },
-//     editItem: (state: ServiceState, action: PayloadAction<ContentType>) => {},
-// };
 
 // class Reducer {
 //     state: ServiceState;

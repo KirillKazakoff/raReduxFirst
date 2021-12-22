@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { nanoid } from 'nanoid';
-import { changeInput, selectInputs } from '../../redux/inputSlice';
+import { changeInput, refreshInputs, selectInputs } from '../../redux/inputSlice';
 import { useAppDispatch, useAppSelector } from '../../data/initContent';
 import Button from '../primitives/Button';
 import { Flex } from '../primitives/Flex';
 import Form from '../primitives/Form';
 import Input from '../primitives/Input';
-import {
-    addItem, editItem, selectEditted, setEditted,
-} from '../../redux/serviceSlice';
+import { addItem, editItem, selectEditted } from '../../redux/serviceSlice';
 
 export default function MyForm() {
     const dispatch = useAppDispatch();
-    const editted = useAppSelector(selectEditted);
-    const input = useAppSelector(selectInputs);
+    const editId = useAppSelector(selectEditted);
+    const inputs = useAppSelector(selectInputs);
 
     const onChange = (e: React.SyntheticEvent) => {
         const target = e.target as typeof e.target & { value: string; name: string };
@@ -36,13 +34,10 @@ export default function MyForm() {
             id: nanoid(),
         };
 
-        // target.service.value = '';
-        // target.amount.value = '';
-
-        if (editted) {
-            newService.id = editted.id;
+        dispatch(refreshInputs());
+        if (editId) {
+            newService.id = editId;
             dispatch(editItem(newService));
-            dispatch(setEditted(null));
             return;
         }
 
@@ -57,7 +52,7 @@ export default function MyForm() {
                     variant='input'
                     bg='form'
                     required
-                    value={input[0].value}
+                    value={inputs[0].value}
                     onChange={onChange}
                 />
                 <Input
@@ -65,7 +60,7 @@ export default function MyForm() {
                     variant='input'
                     bg='form'
                     required
-                    value={input[1].value}
+                    value={inputs[1].value}
                     onChange={onChange}
                     type='text'
                 />
