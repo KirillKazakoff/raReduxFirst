@@ -17,6 +17,10 @@ const initialState: ServiceState = {
     filter: '',
 };
 
+const findIndex = (items: ContentType[], id: string) => {
+    return items.findIndex((item) => item.id === id);
+};
+
 export const serviceSlice = createSlice({
     name: 'service',
     initialState,
@@ -25,11 +29,11 @@ export const serviceSlice = createSlice({
             state.items.push(action.payload);
         },
         removeItem: (state, action: PayloadAction<string>) => {
-            const index = state.items.findIndex((item) => item.id === action.payload);
+            const index = findIndex(state.items, action.payload);
             state.items.splice(index, 1);
         },
         editItem: (state, action: PayloadAction<ContentType>) => {
-            const index = state.items.findIndex((item) => item.id === action.payload.id);
+            const index = findIndex(state.items, action.payload.id);
             state.items[index] = action.payload;
         },
         setEditted: (state, action: PayloadAction<string>) => {
